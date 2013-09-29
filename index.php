@@ -1,22 +1,33 @@
 <?php
-session_start();
-mb_internal_encoding('UTF-8');
 $pageTitle = 'Логин';
-include 'includes/header.php';
+$message = '';
+require_once 'includes/header.php';
+if (isset($_SESSION['isLogged'])) {
+	header('Location: files.php');
+	exit;
+}
+else {
+	if ($_POST) {
+		$username = trim($_POST['username']);
+		$password = trim($_POST['password']);
+		if ($username == 'user' && $password == 'qwerty') {
+			$_SESSION['isLogged'] = true;
+			header('Location: files.php');
+			exit;
+		}
+		else {
+			$message = 'Невалидно потребителско име или парола.';
+		}
+	}
 ?>
 	<form method="POST">
-	<div>име:<input type="text" name="username" /></div>
-	<div>телефон:<input type="text" name="phone" /></div>
+	<div>Потребител:<input type="text" name="username" /></div>
+	<div>Парола:<input type="password" name="password" /></div>
 	<div>
-		<select name="group">
-			<?php 
-				foreach ($groups as $key=>$value) {
-					echo'<option value="'.$key.'">'.$value.'</option>';
-				}
-			?>
-		</select>
-	</div>
-	<div><input type="submit" value="Добави" /></div>
+		<a href="#">Регистрирай се</a>
+		<input type="submit" value="Влез" /></div>
 	</form>
 <?php 
-include 'includes/footer.php';
+	echo $message;
+	include_once 'includes/footer.php';
+}
