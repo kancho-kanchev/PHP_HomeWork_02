@@ -12,6 +12,7 @@ else {
 		$password = trim($_POST['password']);
 		if ($username == 'user' && $password == 'qwerty') {
 			$_SESSION['isLogged'] = true;
+			$_SESSION['username'] = $username;
 			header('Location: files.php');
 			exit;
 		}

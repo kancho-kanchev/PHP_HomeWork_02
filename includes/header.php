@@ -1,4 +1,6 @@
 <?php
+session_name('myfirstcookie');
+session_set_cookie_params(0,'/','',false,true);
 session_start();
 mb_internal_encoding('UTF-8');
 //require_once 'includes/constants.php';
@@ -8,5 +10,19 @@ mb_internal_encoding('UTF-8');
 	<head>
 		<title><?= $pageTitle; ?></title>
 		<meta charset="UTF-8">
+<style>
+	form{
+		padding: 25px;
+		border: 2px black solid;
+		-moz-border-radius: 15px;
+		-webkit-border-radius: 15px;
+		-khtml-border-radius:15px;
+		border-radius: 15px;
+		-webkit-box-shadow:inset 1px 1px 2px #999;
+		-moz-box-shadow:inset 1px 1px 2px #999;
+		-khtml-box-shadow:inset 1px 1px 2px #999;
+		box-shadow:inset 1px 1px 2px #999;
+	}
+</style>
 	</head>
 	<body>
