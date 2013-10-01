@@ -1,8 +1,8 @@
 <?php
 $pageTitle = 'Логин';
 $message = '';
-require_once 'includes/header.php';
-if (isset($_SESSION['isLogged'])) {
+require_once 'includes'.DIRECTORY_SEPARATOR.'header.php';
+if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] == true) {
 	header('Location: files.php');
 	exit;
 }
@@ -30,5 +30,5 @@ else {
 	</form>
 <?php 
 	echo $message;
-	include_once 'includes/footer.php';
+	include_once 'includes'.DIRECTORY_SEPARATOR.'footer.php';
 }

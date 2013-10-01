@@ -3,7 +3,6 @@ session_name('myfirstcookie');
 session_set_cookie_params(0,'/','',false,true);
 session_start();
 mb_internal_encoding('UTF-8');
-//require_once 'includes/constants.php';
 ?>
 <!DOCTYPE html>
 <html>
