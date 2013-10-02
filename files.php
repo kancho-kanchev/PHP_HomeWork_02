@@ -1,9 +1,16 @@
 <?php
 $pageTitle = 'Web server';
 $message = '';
+$messageForDel = '';
 require_once 'includes'.DIRECTORY_SEPARATOR.'header.php';
 if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] == true) {
 	$username = trim($_SESSION['username']);
+	if (isset($_GET['del'])) {
+		if (file_exists($username . DIRECTORY_SEPARATOR . $_GET['del'])) {
+			unlink($username . DIRECTORY_SEPARATOR . $_GET['del']);
+			$messageForDel = 'Файлът е изтрит';
+		}
+	}
 	if (!file_exists($username)) {
 		mkdir($username);
 	}
@@ -49,7 +56,8 @@ if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] == true) {
 		</div>
 	</form>
 	<div><?= $message; ?></div>
-<?php 
+	<div><?= $messageForDel; ?></div>
+<?php
 	$files = scandir($username);
 	natcasesort($files);
 	echo '<table>'."\n";
@@ -57,10 +65,11 @@ if (isset($_SESSION['isLogged']) && $_SESSION['isLogged'] == true) {
 		if (!($value == '.' || $value == '..')) {
 			echo '<tr><td><pre><a href="download.php?file='.$value.'">'.$value.'</a></pre></td>';
 			$size= filesize($username.DIRECTORY_SEPARATOR.$value);
-			echo '<td><pre>'.round($size / 1024, 2) . " kB</pre></td></tr>"."\n";
+			echo '<td><pre>'.number_format (round($size / 1024, 2),2,'.',' ') . " kB</pre></td>";
+			echo '<td><a href="files.php?del='.$value.'">Изтрий</a></td></tr>'."\n";
 		}
 	}
-	echo '</pre>'."\n";
+	echo '</table>'."\n";
 	include_once 'includes'.DIRECTORY_SEPARATOR.'footer.php';
 }
 else {
